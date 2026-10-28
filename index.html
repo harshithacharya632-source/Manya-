@@ -82,6 +82,12 @@ h2{font-size:1.75rem}
 #breath{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,var(--b),var(--a));opacity:.7;margin:14px;animation:br 8s ease-in-out infinite}
 @keyframes br{50%{transform:scale(1.6)}}
 .btn:disabled{opacity:.5;cursor:not-allowed;animation:none}
+.zoo{display:none;position:fixed;left:0;right:0;bottom:calc(6px + env(safe-area-inset-bottom,0px));justify-content:center;gap:4px;font-size:38px;pointer-events:none;z-index:2}
+.screen.on .zoo{display:flex}
+.zoo span{display:inline-block;transform-origin:bottom;animation:dn .6s ease-in-out infinite alternate}
+@keyframes dn{from{transform:translateY(0) rotate(-12deg)}to{transform:translateY(-24px) rotate(12deg) scale(1.1)}}
+.codebox{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 18px;border-radius:20px;border:1.5px dashed var(--a);background:var(--card)}
+#codeT{font:700 1.3rem Quicksand,system-ui,sans-serif;color:var(--a);letter-spacing:.06em;word-break:break-all}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
 </style>
 </head>
@@ -172,7 +178,9 @@ h2{font-size:1.75rem}
   <div class="big">🥳</div>
   <h1>She said yes!</h1>
   <p class="sub" id="yesT"></p>
+  <div class="codebox"><span id="codeT"></span><button class="btn" id="copy">Copy code 📋</button></div>
   <button class="btn" id="again">Celebrate again 🎉</button>
+  <div class="zoo" aria-hidden="true"><span style="animation-delay:0s">🐶</span><span style="animation-delay:.12s">🐱</span><span style="animation-delay:.24s">🐰</span><span style="animation-delay:.36s">🐼</span><span style="animation-delay:.48s">🦊</span><span style="animation-delay:.6s">🐧</span><span style="animation-delay:.72s">🐻</span></div>
  </section>
 <section class="screen">
   <div class="big">🌸</div>
@@ -201,6 +209,7 @@ const CFG={
  msg:"Manya,\nYou are the best thing that ever happened to me. Every day with you feels special, and I can’t imagine my life without you.\n\nSo here is my heart, my smile and my whole world, all for you. 💖",
  ask:"Will you be mine, forever? 💍",
  lockMin:10,
+ code:"MANYA-SAID-YES-FOREVER",
  respect:"Okay, no worries, Manya. You can say no, and that is completely fine. Whatever your decision is, I respect it. Thank you for playing with me, and please take care of yourself. 🤍",
  lines:["Work can be heavy, but you are stronger than any deadline. 💼","Stress is temporary. Your strength is permanent. 🌿","Slow progress is still progress. Keep going, Manya. 🚶‍♀️","You don’t have to be perfect. Just keep showing up. 🌟","Rest when you need to, then rise again. 🌅","Your life journey is yours. Go at your own pace. 🛤️","You have survived every hard day so far. 💪"],
  cards:[
@@ -261,4 +270,74 @@ function jump(){let c=0,sp=900,on=1;const a=$('#a1'),b=$('#jb'),t=$('#c1');t.tex
 // 2 heart rain
 function rain(){let c=0;const a=$('#a2'),t=$('#c2');t.textContent='0 / 7';a.innerHTML='';
  const iv=setInterval(()=>{const h=document.createElement('span');h.className='hrt';h.textContent=['💖','💗','💕','💘'][Math.random()*4|0];h.style.left=R(0,a.clientWidth-44)+'px';h.style.animationDuration=R(3,5)+'s';
-  h.onpointerdown=e
+  h.onpointerdown=e=>{e.preventDefault();if(h.dead)return;h.dead=1;h.remove();c++;S.pop();t.textContent=c+' / 7';burst(e.clientX,e.clientY,10);if(c>=7){clearInterval(iv);a.innerHTML='';next()}};
+  h.onanimationend=()=>h.remove();a.appendChild(h)},520)}
+
+// 3 quiz
+function quiz(){let i=0,strikes=0;const o=$('#opts');
+ const show=()=>{const d=CFG.quiz[i];$('#q').textContent=d.q;$('#qh').textContent='Question '+(i+1)+' of '+CFG.quiz.length+', chances left: '+(3-strikes);o.innerHTML='';
+  d.a.forEach((txt,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=txt;
+   b.onclick=()=>{if(k===d.ok){S.ok();burst(innerWidth/2,innerHeight/2,16);i++;if(i>=CFG.quiz.length)next();else show()}else{S.bad();strikes++;$('#qh').textContent='Chances left: '+(3-strikes);if(strikes>=3)setTimeout(fail,700);b.classList.add('bad');b.textContent='Hmm, try again 😜';setTimeout(()=>{b.classList.remove('bad');b.textContent=txt},900)}};
+   o.appendChild(b)})};show()}
+
+// 4 hold to charge
+function charge(){const h=$('#hb'),m=$('#mf'),t=$('#c4');let v=0,on=false,fin=false;
+ const iv=setInterval(()=>{if(fin)return;v=on?Math.min(100,v+2):Math.max(0,v-3);if(on&&v<100)snd(300+v*8,.08,'sine',.05);m.style.width=v+'%';h.style.transform='scale('+(1+v/250)+')';t.textContent=Math.round(v)+'%';if(v>=100){fin=true;clearInterval(iv);next()}},50);
+ h.onpointerdown=e=>{e.preventDefault();on=true};h.onpointerup=h.onpointerleave=h.onpointercancel=()=>{on=false};h.oncontextmenu=e=>e.preventDefault()}
+
+// 5 memory match
+function mem(){const g=$('#grid'),E=['💖','🌹','🦋','🍫','🌙','🎀'],d=[...E,...E].sort(()=>Math.random()-.5);let a=null,lk=0,m=0,ok=0;g.innerHTML='';$('#c5').textContent='Mistakes 0 / 8';
+ d.forEach(e=>{const b=document.createElement('button');b.className='mc';b.innerHTML='<span>'+e+'</span>';
+  b.onclick=()=>{if(lk||b.classList.contains('up'))return;b.classList.add('up');S.tap();if(!a){a=b;return}
+   if(a.textContent===e){a=null;S.pop();if(++ok===6)next()}else{lk=1;m++;S.bad();$('#c5').textContent='Mistakes '+m+' / 8';const p=a;a=null;setTimeout(()=>{p.classList.remove('up');b.classList.remove('up');lk=0;if(m>=8)fail()},700)}};
+  g.appendChild(b)})}
+
+// 6 perfect timing
+function bar(){const mk=$('#mk'),z=$('#zn');let x=0,dr=1,sp=.9,hits=0,lives=3,zw=26,zx=0,run=1,pt=0;const inf=()=>$('#c6').textContent='Hits '+hits+' / 3, lives left: '+lives;
+ const setz=()=>{zx=R(4,96-zw);z.style.left=zx+'%';z.style.width=zw+'%'};setz();inf();
+ const lp=t=>{if(!run)return;const k=pt?Math.min(3,(t-pt)/16.7):1;pt=t;x+=dr*sp*k;if(x>=100){x=100;dr=-1}if(x<=0){x=0;dr=1}mk.style.left=x+'%';requestAnimationFrame(lp)};requestAnimationFrame(lp);
+ $('#stop').onpointerdown=e=>{e.preventDefault();if(!run)return;if(x>=zx&&x<=zx+zw){hits++;S.ok();zw-=5;sp+=.45;if(hits>=3){run=0;next()}else setz()}else{lives--;S.bad();if(lives<=0){run=0;fail()}}inf()}}
+
+// 7 melody
+function sim(){const pd=[...document.querySelectorAll('.pd')],F=[392,494,587,698],t=$('#c7');let seq=[],pos=0,busy=1;
+ const fl=(i,d)=>setTimeout(()=>{pd[i].classList.add('lit');snd(F[i],.35,'sine',.2);setTimeout(()=>pd[i].classList.remove('lit'),300)},d||0);
+ const play=()=>{busy=1;pos=0;seq.push(Math.random()*4|0);t.textContent='Watch… round '+seq.length+' / 5';seq.forEach((s,k)=>fl(s,700+k*650));setTimeout(()=>{busy=0;t.textContent='Your turn! Round '+seq.length+' / 5'},700+seq.length*650)};
+ pd.forEach((p,i)=>p.onpointerdown=e=>{e.preventDefault();if(busy)return;fl(i);if(i!==seq[pos]){busy=1;setTimeout(fail,600);return}if(++pos===seq.length){busy=1;setTimeout(seq.length>=5?next:play,800)}});
+ play()}
+
+// motivation cards
+function pocket(){const w=$('#cards'),ct=$('#cont');let o=0;w.innerHTML='';ct.style.display='none';
+ CFG.cards.forEach(c=>{const b=document.createElement('button');b.className='mcard';b.textContent=c.t+', tap to open';let d=0;
+  b.onclick=()=>{S.pop();if(!d){d=1;o++}b.innerHTML=c.t+'<small>'+c.m+'</small>';if(o>=CFG.cards.length)ct.style.display=''};w.appendChild(b)})}
+$('#cont').onclick=()=>{S.win();go(9)};
+
+// secret message + question
+function fin(){const el=$('#tw'),ask=$('#ask'),s=CFG.msg;let i=0;el.textContent='';ask.classList.remove('show');no.style.display='none';no.classList.remove('fly');no.style.left=no.style.top='';$('#btns').appendChild(no);no.textContent='No';$('#taunt').textContent='';yes.style.transform='';$('#askT').textContent=CFG.ask;$('#yesT').textContent=CFG.yes;
+ const iv=setInterval(()=>{el.textContent=s.slice(0,++i);if(i>=s.length){clearInterval(iv);setTimeout(()=>{ask.classList.add('show');no.style.display=''},500)}},30);
+ el.onclick=()=>{i=s.length-1}}
+
+// runaway No button
+const no=$('#no'),yes=$('#yes'),T=['Nope 😜','Too slow!','Not today','Catch me 🏃‍♀️','Try again 😏','Haha no 🤭','Almost! 😝','Just say yes 🥺'];let n=0,last=0,won=0,tries=0,lp=0;
+function dodge(e){if(e&&e.preventDefault)e.preventDefault();const now=Date.now();if(e&&/down|start|click/.test(e.type)&&now-lp>300){lp=now;if(++tries>=10){respect();return}}if(now-last<120)return;last=now;n++;snd(R(250,450),.1,'square',.05);
+ if(no.parentNode!==document.body)document.body.appendChild(no);
+ const w=no.offsetWidth,h=no.offsetHeight,yr=yes.getBoundingClientRect();let x,y,k=0;
+ do{x=R(10,innerWidth-w-10);y=R(70,innerHeight-h-24);k++}while(k<25&&x<yr.right+14&&x+w>yr.left-14&&y<yr.bottom+14&&y+h>yr.top-14);
+ no.classList.add('fly');no.style.left=x+'px';no.style.top=y+'px';no.textContent=T[n%T.length];$('#taunt').textContent=n>2?'The “No” button is shy 🙈':'';yes.style.transform='scale('+Math.min(1.6,1+n*.08)+')'}
+['pointerenter','pointerdown','touchstart','click','focus'].forEach(ev=>no.addEventListener(ev,dodge,{passive:false}));
+
+// Yes = celebration
+function yesGo(e){if(won)return;won=1;if(e&&e.preventDefault)e.preventDefault();no.remove();go(10);S.yes();party()}
+yes.addEventListener('pointerdown',yesGo);yes.addEventListener('click',yesGo);
+$('#again').onclick=()=>{S.yes();party()};
+$('#codeT').textContent=CFG.code;
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(CFG.code)}catch(e){const a=document.createElement('textarea');a.value=CFG.code;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}S.ok();toast('Copied! Now send it to me 💖')};
+
+// respectful ending after 10 tries on No
+function respect(){no.style.display='none';$('#respT').textContent=CFG.respect;S.ok();go(11)}
+$('#oops').onclick=()=>{tries=0;go(9);$('#tw').click()};
+
+// resume where she left off (add #reset to the link to start over)
+try{if(location.hash==='#reset')localStorage.removeItem('manya_q');const d=JSON.parse(localStorage.getItem('manya_q')||'null');if(d){cur=d.s||1;lu=d.l||0;if(lu>Date.now())go(12);else if(cur>1&&cur<=9)go(cur)}}catch(e){}
+</script>
+</body>
+</html>
