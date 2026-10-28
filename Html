@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Manya 💌</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600;1,700&family=Quicksand:wght@500;700&display=swap">
+<style>
+:root{--bg1:#ffe9ef;--bg2:#e6dcff;--ink:#3b1f3f;--muted:#7d5a82;--card:rgba(255,255,255,.62);--line:rgba(120,60,120,.2);--a:#e8266f;--b:#e59a1f;--glow:rgba(232,38,111,.35);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#1a0b2e;--bg2:#3a0f4a;--ink:#fff1f6;--muted:#d6bde3;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.18);--a:#ff6fa5;--b:#ffd27a;--glow:rgba(255,111,165,.4)}}
+:root[data-theme="dark"]{--bg1:#1a0b2e;--bg2:#3a0f4a;--ink:#fff1f6;--muted:#d6bde3;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.18);--a:#ff6fa5;--b:#ffd27a;--glow:rgba(255,111,165,.4)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;font-family:Quicksand,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background-color:var(--bg1);background-image:linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed;overflow-x:hidden}
+#sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(64px);opacity:.5;animation:fl 12s ease-in-out infinite alternate}
+.o1{width:260px;height:260px;background:var(--a);left:-90px;top:-70px}
+.o2{width:240px;height:240px;background:var(--b);right:-100px;top:42%;animation-delay:-4s}
+.o3{width:280px;height:280px;background:#7c4dff;left:18%;bottom:-130px;animation-delay:-8s}
+@keyframes fl{to{transform:translate(40px,-50px) scale(1.15)}}
+.st{position:absolute;color:var(--b);font-style:normal;opacity:.2;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.9;transform:scale(1.4)}}
+#cv{position:fixed;inset:0;z-index:100;pointer-events:none}
+#app{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;min-height:calc(100svh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+#pips{display:flex;gap:12px;font-size:22px;height:48px;padding-top:14px;visibility:hidden}
+.screen{display:none;width:100%;max-width:440px}
+.screen.on{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:10px 18px 28px;text-align:center;animation:in .7s both}
+@keyframes in{from{opacity:0;filter:blur(8px)}}
+h1,h2,#q{font-family:"Playfair Display",Georgia,serif;font-style:italic;margin:0;line-height:1.15}
+h1{font-size:2.5rem;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:1.75rem}
+.sub{font-size:1.05rem;line-height:1.6;color:var(--muted);margin:0;max-width:34ch}
+.big{font-size:92px;line-height:1;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 10px 26px var(--glow))}
+@keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
+.card{width:100%;background:var(--card);border:1px solid var(--line);border-radius:30px 30px 30px 8px;padding:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 22px 50px -22px var(--glow);display:flex;flex-direction:column;gap:12px}
+.tag{font-size:.95rem;color:var(--a);font-weight:700}
+.card p{margin:0;color:var(--muted)}
+.btn{font:700 1rem Quicksand,system-ui,sans-serif;color:#fff;border:0;border-radius:99px;padding:14px 28px;background:linear-gradient(135deg,var(--a),#ff7a59);box-shadow:0 10px 26px -8px var(--glow);cursor:pointer;touch-action:manipulation}
+.btn:active{transform:scale(.95)}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--b);outline-offset:3px}
+#go{animation:pl 1.8s ease-in-out infinite}
+@keyframes pl{50%{transform:scale(1.07)}}
+.arena{position:relative;height:260px;border-radius:22px;border:1.5px dashed var(--line);overflow:hidden;touch-action:manipulation}
+.arena.tall{height:300px}
+.jb{position:absolute;padding:10px 18px;transition:left .15s,top .15s}
+.cnt{font-weight:700;color:var(--a)}
+.hrt{position:absolute;bottom:-44px;font-size:36px;cursor:pointer;user-select:none;-webkit-user-select:none;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-350px) rotate(18deg)}}
+#q{font-size:1.4rem;color:var(--ink)}
+#opts{display:flex;flex-direction:column;gap:10px}
+.opt{width:100%;padding:14px;border-radius:16px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:700 1rem Quicksand,system-ui,sans-serif;cursor:pointer}
+.opt.bad{border-color:#ff5252;animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.hb{width:130px;height:130px;margin:6px auto;border-radius:50%;border:0;font-size:64px;background:var(--card);box-shadow:0 0 0 8px var(--line),0 14px 40px var(--glow);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:pointer;transition:transform .08s}
+.mt{height:14px;border-radius:99px;background:var(--line);overflow:hidden}
+.mt i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b))}
+.msg{white-space:pre-line;text-align:left;line-height:1.75;font-size:1.08rem;color:var(--ink);min-height:130px;margin:0;cursor:pointer}
+#ask{opacity:0;pointer-events:none;transition:opacity .8s;display:flex;flex-direction:column;align-items:center;gap:12px}
+#ask.show{opacity:1;pointer-events:auto}
+#btns{display:flex;gap:16px;align-items:center;justify-content:center;min-height:76px}
+#yes{font-size:1.2rem;padding:16px 34px;transition:transform .2s}
+#no{background:var(--card);color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+#no.fly{position:fixed;transition:left .2s,top .2s;z-index:60}
+#taunt{min-height:1.4em;color:var(--muted);font-size:.95rem;margin:0}
+#mute{position:fixed;top:0;right:0;z-index:95;border:0;background:none;font-size:22px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;cursor:pointer}
+#toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);width:min(86vw,360px);padding:18px 20px;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--ink);font:700 1.05rem/1.5 Quicksand,system-ui,sans-serif;text-align:center;opacity:0;pointer-events:none;transition:.35s;z-index:90;box-shadow:0 20px 50px -18px var(--glow)}
+#toast.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mc{aspect-ratio:1;border-radius:16px;border:1.5px solid var(--line);background:var(--card);font:30px Quicksand,system-ui,sans-serif;cursor:pointer;padding:0;color:var(--b)}
+.mc::after{content:"✦";font-size:20px}.mc.up::after{content:none}
+.mc span{display:none}.mc.up span{display:inline}.mc.up{border-color:var(--a)}
+#trk{position:relative;height:46px;border-radius:99px;background:var(--line);margin:8px 14px}
+#zn{position:absolute;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,#3ddc97,#7ef0c0);box-shadow:0 0 18px #3ddc97}
+#mk{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);font-size:30px}
+#pads{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pd{aspect-ratio:1.4;border:0;border-radius:22px;opacity:.5;transition:opacity .1s,transform .1s}
+.pd.lit{opacity:1;transform:scale(1.05);box-shadow:0 0 26px currentColor}
+#cards{display:flex;flex-direction:column;gap:10px}
+.mcard{width:100%;text-align:left;padding:16px;border-radius:18px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:700 1rem/1.6 Quicksand,system-ui,sans-serif;cursor:pointer}
+.mcard small{display:block;font-weight:500;color:var(--muted);margin-top:6px;font-size:.95rem}
+#clock{font:700 2.6rem "Playfair Display",Georgia,serif;color:var(--a);font-variant-numeric:tabular-nums}
+#breath{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,var(--b),var(--a));opacity:.7;margin:14px;animation:br 8s ease-in-out infinite}
+@keyframes br{50%{transform:scale(1.6)}}
+.btn:disabled{opacity:.5;cursor:not-allowed;animation:none}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="sky"><b class="orb o1"></b><b class="orb o2"></b><b class="orb o3"></b></div>
+<canvas id="cv"></canvas>
+<main id="app">
+ <div id="pips"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+ <div id="toast"></div>
+ <button id="mute" aria-label="Sound on or off">🔊</button>
+
+ <section class="screen on">
+  <div class="big">💌</div>
+  <h1>Hey Manya…</h1>
+  <p class="sub">I hid a little secret for you. It’s locked, and only you can open it. Pass 4 tiny challenges to find the key.</p>
+  <button class="btn" id="go">Start the quest ✨</button>
+ </section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 1: catch the button</div>
+  <p>It never stops moving. Tap it 4 times, and it gets faster!</p>
+  <div class="arena" id="a1"><button class="btn jb" id="jb">Catch me!</button></div>
+  <div class="cnt" id="c1"></div>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 2: heart rain</div>
+  <p>Pop 7 hearts before they float away.</p>
+  <div class="arena tall" id="a2"></div>
+  <div class="cnt" id="c2"></div>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 3: how well do you know me?</div>
+  <div id="q"></div>
+  <div id="opts"></div>
+  <p id="qh"></p>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 4: charge the heart</div>
+  <p>Press and hold the heart until it’s full.</p>
+  <button class="hb" id="hb" aria-label="Hold to charge">❤️</button>
+  <div class="mt"><i id="mf"></i></div>
+  <div class="cnt" id="c4">0%</div>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 5: memory match (hard)</div>
+  <p>Find all 6 pairs. Only 8 mistakes allowed.</p>
+  <div id="grid"></div>
+  <div class="cnt" id="c5"></div>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 6: perfect timing (hard)</div>
+  <p>Tap Stop when the heart is inside the glowing zone. Hit it 3 times. You have 3 lives.</p>
+  <div id="trk"><div id="zn"></div><span id="mk">❤️</span></div>
+  <button class="btn" id="stop">Stop!</button>
+  <div class="cnt" id="c6"></div>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">Challenge 7: copy the melody (hard)</div>
+  <p>Watch the lights and listen, then repeat them. 5 rounds. One mistake and it ends.</p>
+  <div id="pads"><button class="pd" style="background:#ff4d8d;color:#ff4d8d" aria-label="Pink pad"></button><button class="pd" style="background:#ffb347;color:#ffb347" aria-label="Orange pad"></button><button class="pd" style="background:#4dd0e1;color:#4dd0e1" aria-label="Blue pad"></button><button class="pd" style="background:#9575ff;color:#9575ff" aria-label="Purple pad"></button></div>
+  <div class="cnt" id="c7"></div>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">A little pocket of strength 🌱</div>
+  <p>Tap each card, Manya. These are just for you.</p>
+  <div id="cards"></div>
+  <button class="btn" id="cont" style="display:none">Open my secret 🔓</button>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">🔓 Unlocked, just for you</div>
+  <p class="msg" id="tw"></p>
+  <div id="ask">
+   <h2 id="askT"></h2>
+   <div id="btns"><button class="btn" id="yes">Yes 💖</button><button class="btn" id="no">No</button></div>
+   <p id="taunt"></p>
+  </div>
+ </div></section>
+
+ <section class="screen">
+  <div class="big">🥳</div>
+  <h1>She said yes!</h1>
+  <p class="sub" id="yesT"></p>
+  <button class="btn" id="again">Celebrate again 🎉</button>
+ </section>
+<section class="screen">
+  <div class="big">🌸</div>
+  <h1>It’s okay, Manya</h1>
+  <p class="sub" id="respT"></p>
+  <button class="btn" id="oops" style="background:var(--card);color:var(--ink);border:1.5px solid var(--line);box-shadow:none">I was only playing 🙈</button>
+ </section>
+
+ <section class="screen">
+  <div class="big">⏳</div>
+  <h1>Take a little break</h1>
+  <p class="sub">Spend <b id="lm"></b> minutes chatting with <b>Harshi</b> 💬, then come back here and continue. No stress. 🤍</p>
+  <div id="clock">10:00</div>
+  <div id="breath"></div>
+  <p class="sub">Breathe in and out with the circle 🌬️</p>
+  <p class="sub" id="lockq"></p>
+  <button class="btn" id="back" disabled>Chat with Harshi first 💬</button>
+ </section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),R=(a,b)=>Math.random()*(b-a)+a;
+
+// ✏️ EDIT YOUR WORDS HERE
+const CFG={
+ msg:"Manya,\nYou are the best thing that ever happened to me. Every day with you feels special, and I can’t imagine my life without you.\n\nSo here is my heart, my smile and my whole world, all for you. 💖",
+ ask:"Will you be mine, forever? 💍",
+ lockMin:10,
+ respect:"Okay, no worries, Manya. You can say no, and that is completely fine. Whatever your decision is, I respect it. Thank you for playing with me, and please take care of yourself. 🤍",
+ lines:["Work can be heavy, but you are stronger than any deadline. 💼","Stress is temporary. Your strength is permanent. 🌿","Slow progress is still progress. Keep going, Manya. 🚶‍♀️","You don’t have to be perfect. Just keep showing up. 🌟","Rest when you need to, then rise again. 🌅","Your life journey is yours. Go at your own pace. 🛤️","You have survived every hard day so far. 💪"],
+ cards:[
+  {t:"When work feels heavy 💼",m:"You don’t need to be perfect, you just need to keep showing up. Break the big task into tiny steps, finish one, and be proud of it. You are far more capable than your worst day tells you."},
+  {t:"When stress gets loud 🌧️",m:"Pause. Breathe in slowly, breathe out slowly. Drink some water, take a short walk, and do one thing at a time. Stress is a visitor, not your home. You have survived every hard day so far."},
+  {t:"When the road feels long 🛤️",m:"Your life journey is yours, so never compare your chapter 3 with someone else’s chapter 20. Rest is allowed. Slow is allowed. Just don’t stop believing in yourself, Manya. I believe in you."}
+ ],
+ yes:"You just made me the happiest person in the world. I love you, Manya. Forever and always. 💞",
+ quiz:[
+  {q:"Who is the cutest person in this world?",a:["Some random person","Manya 😍","Nobody"],ok:1},
+  {q:"What makes me smile the most?",a:["Food 🍕","Sleeping 😴","You 💖"],ok:2},
+  {q:"What do I love most about you?",a:["Everything, obviously 💖","Your smile 😊","Your kindness 🌸"],ok:0},
+  {q:"How much do I care about you?",a:["A little","More than words 💞","A lot"],ok:1}
+ ]
+};
+
+// background sparkles
+for(let i=0;i<16;i++){const s=document.createElement('i');s.className='st';s.textContent='✦';s.style.cssText=`left:${R(0,100)}%;top:${R(0,100)}%;font-size:${R(8,18)}px;animation-delay:${R(0,4)}s`;$('#sky').appendChild(s)}
+
+// confetti + emoji bursts
+const cv=$('#cv'),cx=cv.getContext('2d');let P=[],raf=0;
+const COL=['#ff4d8d','#ffb347','#ffe66d','#7ee8fa','#b388ff','#ffffff'],EM=['💖','💕','✨','🌹','💗'];
+function fit(){cv.width=innerWidth;cv.height=innerHeight}fit();addEventListener('resize',fit);
+function burst(x,y,n,big){for(let i=0;i<n;i++){const em=Math.random()<.3;P.push({x,y,vx:R(-6,6)*(big?1.5:1),vy:R(-11,-3)*(big?1.4:1),r:R(5,10),c:COL[Math.random()*COL.length|0],e:em?EM[Math.random()*EM.length|0]:0,a:R(0,6),va:R(-.2,.2),l:0})}if(!raf)raf=requestAnimationFrame(tick)}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(p=>p.y<cv.height+40&&p.l<260);for(const p of P){p.l++;p.vy+=.25;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.a+=p.va;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);if(p.e){cx.font=p.r*3+'px serif';cx.fillText(p.e,0,0)}else{cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2)}cx.restore()}if(P.length)raf=requestAnimationFrame(tick);else{raf=0;cx.clearRect(0,0,cv.width,cv.height)}}
+function party(){navigator.vibrate&&navigator.vibrate([80,40,80,40,200]);let k=0;burst(innerWidth/2,innerHeight/2,70,1);const iv=setInterval(()=>{burst(R(0,innerWidth),R(innerHeight*.25,innerHeight*.75),45,1);if(++k>12)clearInterval(iv)},450)}
+
+// sound (synthesized, no files)
+let AC,muted=false,mi=0;
+function snd(f,d,t,v,w){if(muted)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+(w||0);o.type=t||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.15,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d)}catch(e){}}
+const tune=(a,d,t)=>a.forEach((f,i)=>snd(f,d+.12,t||'triangle',.16,i*d));
+const S={tap:()=>snd(660,.1,'triangle'),pop:()=>snd(R(700,1100),.12,'sine'),ok:()=>tune([523,659,784],.1),win:()=>tune([523,659,784,1047,1319],.11),bad:()=>tune([330,262,196],.16),yes:()=>tune([523,659,784,1047,784,1047,1319,1568],.12)};
+setInterval(()=>{if(AC&&!muted)snd([262,330,392,330,523,392,330,294][mi++%8],1,'sine',.035)},650);
+$('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊'};
+
+// failed challenge = break time
+let cur=1,lu=0;
+function sv(){try{localStorage.setItem('manya_q',JSON.stringify({s:cur,l:lu}))}catch(e){}}
+function fail(){if(step===12)return;S.bad();lu=Date.now()+CFG.lockMin*60000;sv();go(12)}
+function lockUI(){const c=$('#clock'),b=$('#back'),q=$('#lockq');let k=0;$('#lm').textContent=CFG.lockMin;b.disabled=true;b.textContent='Chat with Harshi first 💬';q.textContent=CFG.lines[0];
+ const tk=()=>{const r=Math.max(0,lu-Date.now());c.textContent=String(r/60000|0).padStart(2,'0')+':'+String((r/1000|0)%60).padStart(2,'0');if(r<=0){clearInterval(iv);b.disabled=false;b.textContent='Continue the quest 💖';S.ok()}};
+ const iv=setInterval(()=>{if(step!==12){clearInterval(iv);return}tk()},1000);tk();
+ const rv=setInterval(()=>{if(step!==12){clearInterval(rv);return}q.textContent=CFG.lines[++k%CFG.lines.length]},7000)}
+$('#back').onclick=()=>go(cur);
+
+// flow
+const scr=[...document.querySelectorAll('.screen')],pips=[...document.querySelectorAll('#pips span')];let step=0;
+function go(n){step=n;scr.forEach((s,i)=>s.classList.toggle('on',i===n));pips.forEach((p,i)=>p.textContent=step>i+1?'🔓':'🔒');$('#pips').style.visibility=n>=1&&n<=9?'visible':'hidden';scrollTo(0,0);if(n>=1&&n<=9){cur=n;sv()};([0,jump,rain,quiz,charge,mem,bar,sim,pocket,fin,0,0,lockUI][n]||(()=>{}))()}
+function next(){const n=step+1;S.win();burst(innerWidth/2,innerHeight/2,32,1);toast(CFG.lines[(n-2)%CFG.lines.length]);setTimeout(()=>go(n),1900)}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1700)}
+$('#go').onclick=()=>{S.ok();go(1)};
+
+// 1 jumpy button
+function jump(){let c=0,sp=900,on=1;const a=$('#a1'),b=$('#jb'),t=$('#c1');t.textContent='0 / 4';b.style.transition='left .5s ease-in-out,top .5s ease-in-out';
+ const mv=()=>{b.style.left=R(0,a.clientWidth-b.offsetWidth)+'px';b.style.top=R(0,a.clientHeight-b.offsetHeight)+'px'};mv();const lp=()=>{if(on){mv();setTimeout(lp,sp)}};setTimeout(lp,sp);
+ b.onpointerdown=e=>{e.preventDefault();c++;S.pop();t.textContent=c+' / 4';burst(e.clientX,e.clientY,14);sp=Math.max(450,sp-130);if(c>=4){on=0;b.onpointerdown=null;next()}else mv()}}
+
+// 2 heart rain
+function rain(){let c=0;const a=$('#a2'),t=$('#c2');t.textContent='0 / 7';a.innerHTML='';
+ const iv=setInterval(()=>{const h=document.createElement('span');h.className='hrt';h.textContent=['💖','💗','💕','💘'][Math.random()*4|0];h.style.left=R(0,a.clientWidth-44)+'px';h.style.animationDuration=R(3,5)+'s';
+  h.onpointerdown=e
