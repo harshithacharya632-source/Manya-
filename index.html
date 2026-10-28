@@ -91,6 +91,7 @@ h2{font-size:1.75rem}
 #breath{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,var(--b),var(--a));opacity:.7;margin:14px;animation:br 8s ease-in-out infinite}
 @keyframes br{50%{transform:scale(1.6)}}
 .btn:disabled{opacity:.5;cursor:not-allowed;animation:none}
+.btn.alt{background:var(--card);color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
 .zoo{display:none;position:fixed;left:0;right:0;bottom:calc(6px + env(safe-area-inset-bottom,0px));justify-content:center;gap:4px;font-size:38px;pointer-events:none;z-index:2}
 .screen.on .zoo{display:flex}
 .zoo span{display:inline-block;transform-origin:bottom;animation:dn .6s ease-in-out infinite alternate}
@@ -187,20 +188,24 @@ h2{font-size:1.75rem}
   </div>
  </div></section>
 
+ <!-- 10: YES ending -->
  <section class="screen">
   <div class="big">🥳</div>
   <h1>She said yes!</h1>
   <p class="sub" id="yesT"></p>
   <div class="codebox"><span id="codeT"></span><button class="btn" id="copy">Copy code 📋</button></div>
   <button class="btn" id="again">Celebrate again 🎉</button>
+  <button class="btn alt" id="home1">Home 🏠</button>
   <div class="zoo" aria-hidden="true"><span style="animation-delay:0s">🐶</span><span style="animation-delay:.12s">🐱</span><span style="animation-delay:.24s">🐰</span><span style="animation-delay:.36s">🐼</span><span style="animation-delay:.48s">🦊</span><span style="animation-delay:.6s">🐧</span><span style="animation-delay:.72s">🐻</span></div>
  </section>
 
+ <!-- 11: NO / respect ending -->
  <section class="screen">
   <div class="big">🌸</div>
   <h1>It’s okay, Manya</h1>
   <p class="sub" id="respT"></p>
-  <button class="btn" id="oops" style="background:var(--card);color:var(--ink);border:1.5px solid var(--line);box-shadow:none">I was only playing 🙈</button>
+  <button class="btn alt" id="oops">I was only playing 🙈</button>
+  <button class="btn alt" id="home2">Home 🏠</button>
  </section>
 
  <section class="screen">
@@ -404,6 +409,15 @@ $('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(CFG.code)}c
 // respectful ending after 10 tries on No
 function respect(){logSet({stage:'Finished',result:'NO (pressed No 10 times)'});no.style.display='none';$('#respT').textContent=CFG.respect;S.ok();go(11)}
 $('#oops').onclick=()=>{tries=0;go(9);$('#tw').click()};
+
+// 🏠 Home button: reset the quest and return to the first page ("Hey Manya…")
+// (to go to the login page instead, change go(0) to go(13))
+function goHome(){
+  won=0;tries=0;n=0;          // let Yes / No work fresh again
+  cur=1;lu=0;sv();            // clear saved progress and any break timer
+  go(0)
+}
+$('#home1').onclick=$('#home2').onclick=goHome;
 
 // after login: resume where she left off (add #reset to the link to start over)
 function start(){let moved=0;try{if(location.hash==='#reset')localStorage.removeItem('manya_q');const d=JSON.parse(localStorage.getItem('manya_q')||'null');if(d){cur=d.s||1;lu=d.l||0;if(lu>Date.now()){go(12);moved=1}else if(cur>1&&cur<=9){go(cur);moved=1}}}catch(e){}if(!moved)go(0)}
