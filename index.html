@@ -11,7 +11,8 @@
 :root[data-theme="dark"]{--bg1:#1a0b2e;--bg2:#3a0f4a;--ink:#fff1f6;--muted:#d6bde3;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.18);--a:#ff6fa5;--b:#ffd27a;--glow:rgba(255,111,165,.4)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;min-height:100%;font-family:Quicksand,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background-color:var(--bg1);background-image:linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed;overflow-x:hidden}
+body{margin:0;min-height:100%;font-family:Quicksand,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background-color:var(--bg1);background-image:linear-gradient(160deg,var(--bg1),var(--bg2),var(--bg1));background-size:200% 200%;animation:bgm 18s ease-in-out infinite alternate;background-attachment:fixed;overflow-x:hidden}
+@keyframes bgm{to{background-position:100% 100%}}
 #sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .orb{position:absolute;border-radius:50%;filter:blur(64px);opacity:.5;animation:fl 12s ease-in-out infinite alternate}
 .o1{width:260px;height:260px;background:var(--a);left:-90px;top:-70px}
@@ -20,26 +21,34 @@ body{margin:0;min-height:100%;font-family:Quicksand,system-ui,-apple-system,"Seg
 @keyframes fl{to{transform:translate(40px,-50px) scale(1.15)}}
 .st{position:absolute;color:var(--b);font-style:normal;opacity:.2;animation:tw 3s ease-in-out infinite}
 @keyframes tw{50%{opacity:.9;transform:scale(1.4)}}
+.fh{position:absolute;bottom:-40px;opacity:0;animation:up linear infinite}
+@keyframes up{10%{opacity:.55}to{transform:translateY(-110vh) translateX(30px) rotate(25deg);opacity:0}}
 #cv{position:fixed;inset:0;z-index:100;pointer-events:none}
 #app{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;min-height:calc(100svh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
 #pips{display:flex;gap:12px;font-size:22px;height:48px;padding-top:14px;visibility:hidden}
 .screen{display:none;width:100%;max-width:440px}
 .screen.on{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:10px 18px 28px;text-align:center;animation:in .7s both}
-@keyframes in{from{opacity:0;filter:blur(8px)}}
+@keyframes in{from{opacity:0;filter:blur(8px);transform:translateY(18px)}}
 h1,h2,#q{font-family:"Playfair Display",Georgia,serif;font-style:italic;margin:0;line-height:1.15}
-h1{font-size:2.5rem;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{font-size:2.5rem;background:linear-gradient(90deg,var(--a),var(--b),var(--a));background-size:200% 100%;animation:shm 4s linear infinite;-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes shm{to{background-position:200% 0}}
 h2{font-size:1.75rem}
 .sub{font-size:1.05rem;line-height:1.6;color:var(--muted);margin:0;max-width:34ch}
 .big{font-size:92px;line-height:1;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 10px 26px var(--glow))}
 @keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
-.card{width:100%;background:var(--card);border:1px solid var(--line);border-radius:30px 30px 30px 8px;padding:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 22px 50px -22px var(--glow);display:flex;flex-direction:column;gap:12px}
+.card{position:relative;width:100%;background:var(--card);border:1px solid var(--line);border-radius:30px 30px 30px 8px;padding:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 22px 50px -22px var(--glow);display:flex;flex-direction:column;gap:12px;overflow:hidden}
+.card::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-20deg);animation:sw 6s ease-in-out infinite;pointer-events:none}
+@keyframes sw{60%,100%{left:140%}}
 .tag{font-size:.95rem;color:var(--a);font-weight:700}
 .card p{margin:0;color:var(--muted)}
-.btn{font:700 1rem Quicksand,system-ui,sans-serif;color:#fff;border:0;border-radius:99px;padding:14px 28px;background:linear-gradient(135deg,var(--a),#ff7a59);box-shadow:0 10px 26px -8px var(--glow);cursor:pointer;touch-action:manipulation}
+.btn{font:700 1rem Quicksand,system-ui,sans-serif;color:#fff;border:0;border-radius:99px;padding:14px 28px;background:linear-gradient(135deg,var(--a),#ff7a59);box-shadow:0 10px 26px -8px var(--glow);cursor:pointer;touch-action:manipulation;transition:transform .15s}
 .btn:active{transform:scale(.95)}
-.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--b);outline-offset:3px}
+.btn:focus-visible,.opt:focus-visible,.inp:focus-visible{outline:3px solid var(--b);outline-offset:3px}
 #go{animation:pl 1.8s ease-in-out infinite}
 @keyframes pl{50%{transform:scale(1.07)}}
+.inp{width:100%;padding:14px 16px;border-radius:16px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:700 1rem Quicksand,system-ui,sans-serif;text-align:left;margin-bottom:10px}
+.inp::placeholder{color:var(--muted);font-weight:500}
+.inp.bad{border-color:#ff5252;animation:sh .4s}
 .arena{position:relative;height:260px;border-radius:22px;border:1.5px dashed var(--line);overflow:hidden;touch-action:manipulation}
 .arena.tall{height:300px}
 .jb{position:absolute;padding:10px 18px;transition:left .15s,top .15s}
@@ -88,6 +97,10 @@ h2{font-size:1.75rem}
 @keyframes dn{from{transform:translateY(0) rotate(-12deg)}to{transform:translateY(-24px) rotate(12deg) scale(1.1)}}
 .codebox{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 18px;border-radius:20px;border:1.5px dashed var(--a);background:var(--card)}
 #codeT{font:700 1.3rem Quicksand,system-ui,sans-serif;color:var(--a);letter-spacing:.06em;word-break:break-all}
+#adm{text-align:left;display:flex;flex-direction:column;gap:10px;font-size:.98rem;color:var(--ink)}
+.row{padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--card);line-height:1.55;word-break:break-word}
+.row b{color:var(--a)}
+.row.red{border-color:#ff5252}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
 </style>
 </head>
@@ -99,7 +112,7 @@ h2{font-size:1.75rem}
  <div id="toast"></div>
  <button id="mute" aria-label="Sound on or off">🔊</button>
 
- <section class="screen on">
+ <section class="screen">
   <div class="big">💌</div>
   <h1>Hey Manya…</h1>
   <p class="sub">I hid a little secret for you. It’s locked, and only you can open it. Pass 4 tiny challenges to find the key.</p>
@@ -182,7 +195,8 @@ h2{font-size:1.75rem}
   <button class="btn" id="again">Celebrate again 🎉</button>
   <div class="zoo" aria-hidden="true"><span style="animation-delay:0s">🐶</span><span style="animation-delay:.12s">🐱</span><span style="animation-delay:.24s">🐰</span><span style="animation-delay:.36s">🐼</span><span style="animation-delay:.48s">🦊</span><span style="animation-delay:.6s">🐧</span><span style="animation-delay:.72s">🐻</span></div>
  </section>
-<section class="screen">
+
+ <section class="screen">
   <div class="big">🌸</div>
   <h1>It’s okay, Manya</h1>
   <p class="sub" id="respT"></p>
@@ -199,10 +213,30 @@ h2{font-size:1.75rem}
   <p class="sub" id="lockq"></p>
   <button class="btn" id="back" disabled>Chat with Harshi first 💬</button>
  </section>
+
+ <section class="screen on"><div class="card">
+  <div class="big" style="font-size:60px;align-self:center">🔐</div>
+  <h1 style="font-size:2rem">Welcome 💌</h1>
+  <p>Login to open your surprise</p>
+  <div>
+   <input class="inp" id="lu" placeholder="User ID" autocomplete="username" autocapitalize="off" spellcheck="false">
+   <input class="inp" id="lp" type="password" placeholder="Password" autocomplete="current-password">
+  </div>
+  <div class="cnt" id="le"></div>
+  <button class="btn" id="lb">Login 💖</button>
+ </div></section>
+
+ <section class="screen"><div class="card">
+  <div class="tag">🛡️ Admin dashboard</div>
+  <div id="adm"></div>
+  <button class="btn" id="ref">Refresh 🔄</button>
+  <button class="btn" id="out" style="background:var(--card);color:var(--ink);border:1.5px solid var(--line);box-shadow:none">Logout</button>
+ </div></section>
 </main>
 
 <script>
 const $=s=>document.querySelector(s),R=(a,b)=>Math.random()*(b-a)+a;
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 // ✏️ EDIT YOUR WORDS HERE
 const CFG={
@@ -225,9 +259,18 @@ const CFG={
   {q:"How much do I care about you?",a:["A little","More than words 💞","A lot"],ok:1}
  ]
 };
+const CH=['','Catch the button','Heart rain','Quiz','Charge the heart','Memory match','Perfect timing','Copy the melody'];
 
-// background sparkles
+// background sparkles + floating hearts
 for(let i=0;i<16;i++){const s=document.createElement('i');s.className='st';s.textContent='✦';s.style.cssText=`left:${R(0,100)}%;top:${R(0,100)}%;font-size:${R(8,18)}px;animation-delay:${R(0,4)}s`;$('#sky').appendChild(s)}
+for(let i=0;i<12;i++){const s=document.createElement('i');s.className='fh';s.textContent=['💗','💖','🌸','✨','💕'][i%5];s.style.cssText=`left:${R(0,96)}%;font-size:${R(16,30)}px;animation-duration:${R(9,18)}s;animation-delay:${R(0,12)}s`;$('#sky').appendChild(s)}
+
+// shared log (admin reads it): db when available, always a local copy too
+let DB=null,L={name:'Manya',logins:[],fails:[],wrongs:0,stage:'Not started',result:'',best:'',fav:'',line:''};
+try{window.claude&&claude.use&&claude.use('db').then(d=>{DB=d}).catch(()=>{})}catch(e){}
+function save(){L.updated=Date.now();try{localStorage.setItem('manya_log',JSON.stringify(L))}catch(e){}try{DB&&DB.doc('log/manya').set(L).catch(()=>{})}catch(e){}}
+function logSet(o){Object.assign(L,o);save()}
+async function loadLog(){try{if(DB){const s=await DB.doc('log/manya').get();if(s.exists){L=Object.assign(L,s.data());return}}}catch(e){}try{const l=JSON.parse(localStorage.getItem('manya_log')||'null');if(l)L=Object.assign(L,l)}catch(e){}}
 
 // confetti + emoji bursts
 const cv=$('#cv'),cx=cv.getContext('2d');let P=[],raf=0;
@@ -236,6 +279,7 @@ function fit(){cv.width=innerWidth;cv.height=innerHeight}fit();addEventListener(
 function burst(x,y,n,big){for(let i=0;i<n;i++){const em=Math.random()<.3;P.push({x,y,vx:R(-6,6)*(big?1.5:1),vy:R(-11,-3)*(big?1.4:1),r:R(5,10),c:COL[Math.random()*COL.length|0],e:em?EM[Math.random()*EM.length|0]:0,a:R(0,6),va:R(-.2,.2),l:0})}if(!raf)raf=requestAnimationFrame(tick)}
 function tick(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(p=>p.y<cv.height+40&&p.l<260);for(const p of P){p.l++;p.vy+=.25;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.a+=p.va;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);if(p.e){cx.font=p.r*3+'px serif';cx.fillText(p.e,0,0)}else{cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2)}cx.restore()}if(P.length)raf=requestAnimationFrame(tick);else{raf=0;cx.clearRect(0,0,cv.width,cv.height)}}
 function party(){navigator.vibrate&&navigator.vibrate([80,40,80,40,200]);let k=0;burst(innerWidth/2,innerHeight/2,70,1);const iv=setInterval(()=>{burst(R(0,innerWidth),R(innerHeight*.25,innerHeight*.75),45,1);if(++k>12)clearInterval(iv)},450)}
+addEventListener('pointerdown',e=>{if(step>=1&&step<=9)burst(e.clientX,e.clientY,3)});
 
 // sound (synthesized, no files)
 let AC,muted=false,mi=0;
@@ -248,19 +292,39 @@ $('#mute').onclick=()=>{muted=!muted;$('#mute').textContent=muted?'🔇':'🔊'}
 // failed challenge = break time
 let cur=1,lu=0;
 function sv(){try{localStorage.setItem('manya_q',JSON.stringify({s:cur,l:lu}))}catch(e){}}
-function fail(){if(step===12)return;S.bad();lu=Date.now()+CFG.lockMin*60000;sv();go(12)}
+function fail(){if(step===12)return;S.bad();L.fails=(L.fails||[]).concat([{c:CH[step]||('Challenge '+step),t:Date.now()}]);logSet({stage:'Failed: '+(CH[step]||step)+' (break)'});lu=Date.now()+CFG.lockMin*60000;sv();go(12)}
 function lockUI(){const c=$('#clock'),b=$('#back'),q=$('#lockq');let k=0;$('#lm').textContent=CFG.lockMin;b.disabled=true;b.textContent='Chat with Harshi first 💬';q.textContent=CFG.lines[0];
  const tk=()=>{const r=Math.max(0,lu-Date.now());c.textContent=String(r/60000|0).padStart(2,'0')+':'+String((r/1000|0)%60).padStart(2,'0');if(r<=0){clearInterval(iv);b.disabled=false;b.textContent='Continue the quest 💖';S.ok()}};
  const iv=setInterval(()=>{if(step!==12){clearInterval(iv);return}tk()},1000);tk();
  const rv=setInterval(()=>{if(step!==12){clearInterval(rv);return}q.textContent=CFG.lines[++k%CFG.lines.length]},7000)}
 $('#back').onclick=()=>go(cur);
 
-// flow
-const scr=[...document.querySelectorAll('.screen')],pips=[...document.querySelectorAll('#pips span')];let step=0;
-function go(n){step=n;scr.forEach((s,i)=>s.classList.toggle('on',i===n));pips.forEach((p,i)=>p.textContent=step>i+1?'🔓':'🔒');$('#pips').style.visibility=n>=1&&n<=9?'visible':'hidden';scrollTo(0,0);if(n>=1&&n<=9){cur=n;sv()};([0,jump,rain,quiz,charge,mem,bar,sim,pocket,fin,0,0,lockUI][n]||(()=>{}))()}
-function next(){const n=step+1;S.win();burst(innerWidth/2,innerHeight/2,32,1);toast(CFG.lines[(n-2)%CFG.lines.length]);setTimeout(()=>go(n),1900)}
+// flow (0 welcome, 1-7 challenges, 8 pocket, 9 secret, 10 yes, 11 respect, 12 break, 13 login, 14 admin)
+const scr=[...document.querySelectorAll('.screen')],pips=[...document.querySelectorAll('#pips span')];let step=13;
+function go(n){step=n;scr.forEach((s,i)=>s.classList.toggle('on',i===n));pips.forEach((p,i)=>p.textContent=step>i+1?'🔓':'🔒');$('#pips').style.visibility=n>=1&&n<=9?'visible':'hidden';scrollTo(0,0);if(n>=1&&n<=9){cur=n;sv()};([0,jump,rain,quiz,charge,mem,bar,sim,pocket,fin,0,0,lockUI,0,adminUI][n]||(()=>{}))()}
+function next(){const n=step+1;logSet({stage:'Passed challenge '+step+(CH[step]?' ('+CH[step]+')':'')});S.win();burst(innerWidth/2,innerHeight/2,32,1);toast(CFG.lines[(n-2)%CFG.lines.length]);setTimeout(()=>go(n),1900)}
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1700)}
 $('#go').onclick=()=>{S.ok();go(1)};
+
+// login
+function bad(m){S.bad();$('#le').textContent=m;[$('#lu'),$('#lp')].forEach(i=>{i.classList.remove('bad');void i.offsetWidth;i.classList.add('bad')})}
+async function doLogin(){const u=$('#lu').value.trim().toLowerCase(),p=$('#lp').value;
+ if(u==='manya123'&&p==='123manya'){S.win();$('#le').textContent='';await loadLog();L.logins=(L.logins||[]).concat([Date.now()]);save();start()}
+ else if(u==='admin'&&p==='harshi'){S.ok();$('#le').textContent='';go(14)}
+ else bad('Wrong ID or password 🙈')}
+$('#lb').onclick=doLogin;$('#lp').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+
+// admin
+async function adminUI(){const a=$('#adm');a.innerHTML='<div class="row">Loading…</div>';let d=null,src='this device';
+ try{if(!DB&&window.claude&&claude.use)DB=await claude.use('db');if(DB){const s=await DB.doc('log/manya').get();if(s.exists){d=s.data();src='shared database'}}}catch(e){}
+ if(!d){try{d=JSON.parse(localStorage.getItem('manya_log')||'null')}catch(e){}}
+ if(!d){a.innerHTML='<div class="row">No user has logged in yet.</div>';return}
+ const T=t=>new Date(t).toLocaleString(),f=d.fails||[],lg=d.logins||[];
+ a.innerHTML=`<div class="row"><b>User:</b> ${esc(d.name)} (manya123)<br><b>Status:</b> ${esc(d.stage)}<br><b>Final answer:</b> ${esc(d.result||'not answered yet')}<br><b>Last activity:</b> ${d.updated?T(d.updated):'-'}<br><small>Source: ${src}</small></div>
+ <div class="row"><b>Logins (${lg.length}):</b><br>${lg.slice(-5).map(t=>esc(T(t))).join('<br>')||'-'}</div>
+ <div class="row ${f.length?'red':''}"><b>Failed challenges (${f.length}):</b><br>${f.map(x=>esc(x.c)+' · '+esc(T(x.t))).join('<br>')||'None'}<br><b>Wrong quiz taps:</b> ${d.wrongs||0}</div>
+ <div class="row"><b>Best friend:</b> ${esc(d.best||'-')}<br><b>Favourite person:</b> ${esc(d.fav||'-')}<br><b>One line for you:</b> ${esc(d.line||'-')}</div>`}
+$('#ref').onclick=adminUI;$('#out').onclick=()=>{$('#lu').value=$('#lp').value='';go(13)};
 
 // 1 jumpy button
 function jump(){let c=0,sp=900,on=1;const a=$('#a1'),b=$('#jb'),t=$('#c1');t.textContent='0 / 4';b.style.transition='left .5s ease-in-out,top .5s ease-in-out';
@@ -273,12 +337,17 @@ function rain(){let c=0;const a=$('#a2'),t=$('#c2');t.textContent='0 / 7';a.inne
   h.onpointerdown=e=>{e.preventDefault();if(h.dead)return;h.dead=1;h.remove();c++;S.pop();t.textContent=c+' / 7';burst(e.clientX,e.clientY,10);if(c>=7){clearInterval(iv);a.innerHTML='';next()}};
   h.onanimationend=()=>h.remove();a.appendChild(h)},520)}
 
-// 3 quiz
+// 3 quiz (+ the extra personal question at the end)
 function quiz(){let i=0,strikes=0;const o=$('#opts');
- const show=()=>{const d=CFG.quiz[i];$('#q').textContent=d.q;$('#qh').textContent='Question '+(i+1)+' of '+CFG.quiz.length+', chances left: '+(3-strikes);o.innerHTML='';
+ const show=()=>{const d=CFG.quiz[i];$('#q').textContent=d.q;$('#qh').textContent='Question '+(i+1)+' of '+(CFG.quiz.length+1)+', chances left: '+(3-strikes);o.innerHTML='';
   d.a.forEach((txt,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=txt;
-   b.onclick=()=>{if(k===d.ok){S.ok();burst(innerWidth/2,innerHeight/2,16);i++;if(i>=CFG.quiz.length)next();else show()}else{S.bad();strikes++;$('#qh').textContent='Chances left: '+(3-strikes);if(strikes>=3)setTimeout(fail,700);b.classList.add('bad');b.textContent='Hmm, try again 😜';setTimeout(()=>{b.classList.remove('bad');b.textContent=txt},900)}};
+   b.onclick=()=>{if(k===d.ok){S.ok();burst(innerWidth/2,innerHeight/2,16);i++;if(i>=CFG.quiz.length)extra();else show()}else{S.bad();strikes++;logSet({wrongs:(L.wrongs||0)+1});$('#qh').textContent='Chances left: '+(3-strikes);if(strikes>=3)setTimeout(fail,700);b.classList.add('bad');b.textContent='Hmm, try again 😜';setTimeout(()=>{b.classList.remove('bad');b.textContent=txt},900)}};
    o.appendChild(b)})};show()}
+function extra(){const o=$('#opts');$('#q').textContent='Last one: tell me about your world 💬';$('#qh').textContent='Question '+(CFG.quiz.length+1)+' of '+(CFG.quiz.length+1);o.innerHTML='';
+ const mk=ph=>{const i=document.createElement('input');i.className='inp';i.placeholder=ph;i.maxLength=100;o.appendChild(i);return i};
+ const a=mk('Who is your best friend? (name) 👯‍♀️'),b=mk('Who is your favourite person? 💖'),c=mk('One line for me, anything you want ✍️');
+ const bt=document.createElement('button');bt.className='btn';bt.textContent='Send 💌';o.appendChild(bt);
+ bt.onclick=()=>{if(!a.value.trim()||!b.value.trim()||!c.value.trim()){S.bad();bt.textContent='Fill all three 🥺';setTimeout(()=>bt.textContent='Send 💌',1200);return}logSet({best:a.value.trim(),fav:b.value.trim(),line:c.value.trim()});bt.disabled=true;next()}}
 
 // 4 hold to charge
 function charge(){const h=$('#hb'),m=$('#mf'),t=$('#c4');let v=0,on=false,fin=false;
@@ -312,7 +381,7 @@ function pocket(){const w=$('#cards'),ct=$('#cont');let o=0;w.innerHTML='';ct.st
 $('#cont').onclick=()=>{S.win();go(9)};
 
 // secret message + question
-function fin(){const el=$('#tw'),ask=$('#ask'),s=CFG.msg;let i=0;el.textContent='';ask.classList.remove('show');no.style.display='none';no.classList.remove('fly');no.style.left=no.style.top='';$('#btns').appendChild(no);no.textContent='No';$('#taunt').textContent='';yes.style.transform='';$('#askT').textContent=CFG.ask;$('#yesT').textContent=CFG.yes;
+function fin(){logSet({stage:'Reading the secret message'});const el=$('#tw'),ask=$('#ask'),s=CFG.msg;let i=0;el.textContent='';ask.classList.remove('show');no.style.display='none';no.classList.remove('fly');no.style.left=no.style.top='';$('#btns').appendChild(no);no.textContent='No';$('#taunt').textContent='';yes.style.transform='';$('#askT').textContent=CFG.ask;$('#yesT').textContent=CFG.yes;
  const iv=setInterval(()=>{el.textContent=s.slice(0,++i);if(i>=s.length){clearInterval(iv);setTimeout(()=>{ask.classList.add('show');no.style.display=''},500)}},30);
  el.onclick=()=>{i=s.length-1}}
 
@@ -326,18 +395,18 @@ function dodge(e){if(e&&e.preventDefault)e.preventDefault();const now=Date.now()
 ['pointerenter','pointerdown','touchstart','click','focus'].forEach(ev=>no.addEventListener(ev,dodge,{passive:false}));
 
 // Yes = celebration
-function yesGo(e){if(won)return;won=1;if(e&&e.preventDefault)e.preventDefault();no.remove();go(10);S.yes();party()}
+function yesGo(e){if(won)return;won=1;if(e&&e.preventDefault)e.preventDefault();logSet({stage:'Finished',result:'YES 💖'});no.remove();go(10);S.yes();party()}
 yes.addEventListener('pointerdown',yesGo);yes.addEventListener('click',yesGo);
 $('#again').onclick=()=>{S.yes();party()};
 $('#codeT').textContent=CFG.code;
 $('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(CFG.code)}catch(e){const a=document.createElement('textarea');a.value=CFG.code;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}S.ok();toast('Copied! Now send it to me 💖')};
 
 // respectful ending after 10 tries on No
-function respect(){no.style.display='none';$('#respT').textContent=CFG.respect;S.ok();go(11)}
+function respect(){logSet({stage:'Finished',result:'NO (pressed No 10 times)'});no.style.display='none';$('#respT').textContent=CFG.respect;S.ok();go(11)}
 $('#oops').onclick=()=>{tries=0;go(9);$('#tw').click()};
 
-// resume where she left off (add #reset to the link to start over)
-try{if(location.hash==='#reset')localStorage.removeItem('manya_q');const d=JSON.parse(localStorage.getItem('manya_q')||'null');if(d){cur=d.s||1;lu=d.l||0;if(lu>Date.now())go(12);else if(cur>1&&cur<=9)go(cur)}}catch(e){}
+// after login: resume where she left off (add #reset to the link to start over)
+function start(){let moved=0;try{if(location.hash==='#reset')localStorage.removeItem('manya_q');const d=JSON.parse(localStorage.getItem('manya_q')||'null');if(d){cur=d.s||1;lu=d.l||0;if(lu>Date.now()){go(12);moved=1}else if(cur>1&&cur<=9){go(cur);moved=1}}}catch(e){}if(!moved)go(0)}
 </script>
 </body>
 </html>
